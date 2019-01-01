@@ -1,5 +1,14 @@
-" Plug-ins
-
+"------------------------------------
+" ___  _             ___     _
+"|   \| |           |   |  O  \
+"|  O | |__ _  __-- |   |  _| _} ___
+"|  __| |  | |/ _ | |   |_| | | / $ \
+"|  | | |  | | |_ | |     \ |  } ___/
+"|__| |__\___|\__ | |_____/_|_| \___/
+"              _| |
+"             \___/   
+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+"------------------------------------
 call plug#begin('~/.vim/plugged')
 
 	" Goyo for writing
@@ -19,8 +28,10 @@ set autoindent
 set indentexpr=off
 set expandtab
 
-" Set tab = 2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set softtabstop=4
 
 " No more double-spacing after period
 set nojoinspaces
@@ -54,34 +65,44 @@ set showcmd
 set shortmess=at
 
 " 2-space indent for html and json files
-autocmd BufRead,BufNewFile *.json,*.html,*.css,*.svg set sw=2 tabstop=2
+autocmd BufRead,BufNewFile *.js,*.json,*.html,*.css,*.svg set sw=2 tabstop=2
 autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
 
 " Navigating with guides
-inoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
-vnoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
-map <Space><Tab> <Esc>/<++><Enter>"_c4l
+inoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
+vnoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
+map <Shift><Tab> <Esc>/<++><Enter>"_c4l
 
 
-" BINDINGS
+"
+"
+"
+"
+"
+"
 "
 " HTML
-autocmd FileType html set tabstop=8
 
 autocmd FileType html inoremap ,html <!DOCTYPE html><Enter><html lang="en-us"><Enter><Tab><head><Enter><Tab><title><++></title><Enter><meta charset="UTF-8"><Enter><Backspace><Backspace><Backspace><<Backspace><Backspace></head><Enter><body><Enter><Enter><++><Enter><Enter></body><Enter></html><Esc>gg
 
+autocmd FileType html inoremap ,dc <div class=""><++></div><Enter><++><Esc>k2f"i
+autocmd FileType html inoremap ,d <div></div><Enter><++><Esc>kf<i
 autocmd FileType html inoremap ,p  <p></p><Enter><++><Esc>0k2f<i
 autocmd FileType html inoremap ,h1 <h1></h1><Enter><++><Esc>kf<i
 autocmd FileType html inoremap ,h2 <h2></h2><Enter><++><Esc>kf<i
 autocmd FileType html inoremap ,h3 <h3></h3><Enter><++><Esc>kf<i
 autocmd FileType html inoremap ,h4 <h4></h4><Enter><++><Esc>kf<i
 autocmd FileType html inoremap ,img <img src=""><Enter><++><Esc>k0/"<Enter>li
-autocmd FileType html inoremap
-autocmd FileType html inoremap
+autocmd FileType html inoremap ,cl <Space>class=""<Esc>i
+autocmd FileType html inoremap ,id <Space>id=""<Esc>i
+autocmd FileType html inoremap ,src <Space>src=""<Esc>i
+autocmd FileType html inoremap ,hd <header class=""><Enter><Enter><++><Enter><Enter></header><Esc>2k02f"i
+autocmd FileType html inoremap ,sb <sidebar class=""><Enter><Enter><++><Enter><Enter></sidebar><Esc>2k02f"i
+autocmd FileType html inoremap ,mn <main><Enter><Enter><Enter><Enter></main><Esc>2kA<Tab> 
+autocmd FileType html inoremap ,ft <footer><Enter><Enter><Enter><Enter></footer><Esc>2kA<Tab>
+autocmd FileType html inoremap ,l <Esc>F>i
 
 
-" Python bindings
-autocmd FileType .py set expandtab
-autocmd FileType .py set tabstop=4
-autocmd FileType .py set softtabstop=4
-autocmd FileType .py set shiftwidth=4
+" Javascript
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ( ()<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap { {}<Esc>i
