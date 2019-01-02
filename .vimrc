@@ -69,9 +69,9 @@ autocmd BufRead,BufNewFile *.js,*.json,*.html,*.css,*.svg set sw=2 tabstop=2
 autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
 
 " Navigating with guides
-inoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
-vnoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
-map <Shift><Tab> <Esc>/<++><Enter>"_c4l
+inoremap ;<Tab> <Esc>/<++><Enter>"_c4l
+vnoremap ;<Tab> <Esc>/<++><Enter>"_c4l
+map ;<Tab> <Esc>/<++><Enter>"_c4l
 
 "                         __
 "  ___  _    _       ____| _|  _            /|\
