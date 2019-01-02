@@ -73,14 +73,16 @@ inoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
 vnoremap <Shift><Tab> <Esc>/<++><Enter>"_c4l
 map <Shift><Tab> <Esc>/<++><Enter>"_c4l
 
+"                         __
+"  ___  _    _       ____| _|  _            /|\
+"/  __||  \ | | 0 __|    \|_ _| |_  __   /|\/|\
+"| |__ |   \| |__|  \ [} | _|_   _|/ _\  /|\/|\
+"\___ |  |\   |  | * \  _||_  | |_ |_ |  /|\ |
+"|___ /|_| \__|__|  _/_| |__| \__/ \__/   |    
+"                |_|
+"                
+"************************************************
 
-"
-"
-"
-"
-"
-"
-"
 " HTML
 
 autocmd FileType html inoremap ,html <!DOCTYPE html><Enter><html lang="en-us"><Enter><Tab><head><Enter><Tab><title><++></title><Enter><meta charset="UTF-8"><Enter><Backspace><Backspace><Backspace><<Backspace><Backspace></head><Enter><body><Enter><Enter><++><Enter><Enter></body><Enter></html><Esc>gg
