@@ -74,8 +74,8 @@ vnoremap ;<Tab> <Esc>/<++><Enter>"_c4l
 map ;<Tab> <Esc>/<++><Enter>"_c4l
 
 "                         __
-"  ___  _    _       ____| _|  _            /|\
-"/  __||  \ | | 0 __|    \|_ _| |_  __   /|\/|\
+" ____  __   _       ____| _|  _            /|\
+"/  __||  \ | | 0 __|    ||_ _| |_  __   /|\/|\
 "| |__ |   \| |__|  \ [} | _|_   _|/ _\  /|\/|\
 "\___ |  |\   |  | * \  _||_  | |_ |_ |  /|\ |
 "|___ /|_| \__|__|  _/_| |__| \__/ \__/   |    
@@ -105,6 +105,20 @@ autocmd FileType html inoremap ,ft <footer><Enter><Enter><Enter><Enter></footer>
 autocmd FileType html inoremap ,l <Esc>F>i
 
 
-" Javascript
-autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ( ()<Esc>i
-autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap { {}<Esc>i
+" General 
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap () ()<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap {} {}<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap [] []<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap (<Enter> (<Enter><Enter>)<Esc>ki<Tab>
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap [<Enter> [<Enter><Enter>]<Esc>ki<Tab>
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap " ""<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ' ''<Esc>i
+autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ` ``<Esc>i
+
+" JS
+
+autocmd FileType javascript inoremap ,rcl 
+
+" C
+autocmd FileType c inoremap #<Space> #include <stdio.h><Enter><Enter>int main()<Enter>{<Enter><Enter>}<Esc>ki<tab>
