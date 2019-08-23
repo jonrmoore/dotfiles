@@ -1,14 +1,7 @@
-"------------------------------------
-" ___  _             ___     _
-"|   \| |           |   |  O  \
-"|  O | |__ _  __-- |   |  _| _} ___
-"|  __| |  | |/ _ | |   |_| | | / $ \
-"|  | | |  | | |_ | |     \ |  } ___/
-"|__| |__\___|\__ | |_____/_|_| \___/
-"              _| |
-"             \___/   
-"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-"------------------------------------
+" Compatibility set to Vim only
+set nocompatible
+
+" Plugins
 call plug#begin('~/.vim/plugged')
 
 	" Goyo for writing
@@ -20,10 +13,8 @@ call plug#begin('~/.vim/plugged')
 	
 call plug#end()
 
-" Relative numbers
+" Standard setup
 set number relativenumber
-
-" Auto-indent
 set autoindent
 set indentexpr=off
 set expandtab
