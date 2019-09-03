@@ -1,166 +1,123 @@
-" Compatibility set to Vim only
-set nocompatible
-colo murphy
-syntax on
+" Basics:
+    set nocompatible
+    colo murphy
+    syntax on
+    set number relativenumber
+    set autoindent
+    set indentexpr=off
+    set expandtab
 
-" Leader
-let mapleader = ","
-
-" Word Processor Mode
-func! WordProcessorMode()
-    setlocal formatoptions=1
-    setlocal noexpandtab
-    map j gj
-    map k gk
-    setlocal spell spelllang=en_us
-    " Import thesaurus here
-    set complete+=s
-    set formatprg=par
-    setlocal wrap
-    setlocal linebreak
-endfu
-com! WP call WordProcessorMode()
-
-" inoremap jj <Esc>
-
-" if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-"     echo "Downloading junngunn/vim-plug to manage plugins..."
-"     silent !mkdir -p ~/.config/nvim/autoload/
-"     silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-" endif
-
-" Plugins
-call plug#begin('~/.vim/plugged')
-    " Night Owl
-    " Plug 'haishanh/night-owl.vim'
-    " Shade of Purple
-    Plug 'Rigellute/shades-of-purple.vim'
-    " Surround
-    Plug 'tpope/vim-surround'
-    " Fugitive
-    Plug 'tpope/vim-fugitive'
-    " Commentary
-    Plug 'tpope/vim-commentary'
-    " Code completion
-    " Plug 'valloric/youcompleteme'
-    " Emmet
-    Plug 'mattn/emmet-vim'
-    " Snippets
-    Plug 'honza/vim-snippets'
-	" Goyo for writing
-	Plug 'junegunn/goyo.vim'
-	" Nerdtree
-	Plug 'scrooloose/nerdtree'
-	" Syntastic
-	Plug 'vim-syntastic/syntastic'	
-	
-call plug#end()
-" NerdTree Toggle
-nmap <silent> <C-z> :NERDTreeToggle<CR>
+    set shiftwidth=4
+    set tabstop=4
+    set expandtab
+    set softtabstop=4
 
 
-set termguicolors
+" Leader:
+    let mapleader = ","
 
-" syntax enable
-" colorscheme shades_of_purple
+"Python:
+    let g:python3_host_prog = '/usr/bin/python3'
 
-" Standard setup
-set number relativenumber
-set autoindent
-set indentexpr=off
-set expandtab
+" Word Processor Mode:
+    func! WordProcessorMode()
+        colo peachpuff
+        setlocal formatoptions=1
+        setlocal noexpandtab
+        map j gj
+        map k gk
+        setlocal spell spelllang=en_us
+        " Import thesaurus here
+        set complete+=s
+        set formatprg=par
+        setlocal wrap
+        setlocal linebreak
+    endfu
+    com! WP call WordProcessorMode()
 
-set shiftwidth=4
-set tabstop=4
-set expandtab
-set softtabstop=4
+" Download vim-plug if not already present:
+    if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+        echo "Downloading junngunn/vim-plug to manage plugins..."
+        silent !mkdir -p ~/.config/nvim/autoload/
+        silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+    endif
+
+" Plugins:
+    call plug#begin('~/.vim/plugged')
+        " Shade of Purple
+        Plug 'Rigellute/shades-of-purple.vim'
+        " Surround
+        Plug 'tpope/vim-surround'
+        " Fugitive
+        Plug 'tpope/vim-fugitive'
+        " Commentary
+        Plug 'tpope/vim-commentary'
+        " Code completion
+        Plug 'valloric/youcompleteme'
+        " Emmet
+        Plug 'mattn/emmet-vim'
+        " Snippets
+        Plug 'honza/vim-snippets'
+        " Goyo for writing
+        Plug 'junegunn/goyo.vim'
+        " Nerdtree
+        Plug 'scrooloose/nerdtree'
+        " Syntastic
+        Plug 'vim-syntastic/syntastic'	
+        " Outliner
+        Plug 'vimoutliner/vimoutliner'
+        
+    call plug#end()
+
+" Toggle Nerdtree
+    map <C-n> :NERDTreeToggle<CR>
+
+" Color scheme setup:
+    set termguicolors
+    syntax enable
+    set t_Co=256
+    set background=dark
+    colorscheme shades_of_purple
+    highlight Normal ctermbg=NONE
+    highlight nonText ctermbg=NONE
 
 " No more double-spacing after period
-set nojoinspaces
+    set nojoinspaces
+    set nowritebackup
+    set noswapfile
+    set nobackup
 
-set nowritebackup
-set noswapfile
-set nobackup
-
-" settings for syntastic
+" Settings for syntastic
 " Syntastic statusline
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
 " Sytnastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_loc_list_height=5
-let g:syntastic_check_on_wq = 0
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_loc_list_height=5
+    let g:syntastic_check_on_wq = 0
+
 " Better symbols
-let g:syntastic_error_symbol = 'XX'
-let g:syntastic_warning_symbol = '!!'
+    let g:syntastic_error_symbol = 'XX'
+    let g:syntastic_warning_symbol = '!!'
 
-autocmd StdinReadPre * let s:std_in=1
+    autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    " Toggle Nerdtree
-map <C-n> :NERDTreeToggle<CR>
-
 " fuck everything about the 'Press ENTER' message:
-set showcmd
-set shortmess=at
+    set showcmd
+    set shortmess=at
 
 " 2-space indent for html and json files
-autocmd BufRead,BufNewFile *.js,*.json,*.html,*.css,*.svg set sw=2 tabstop=2
-autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
+    autocmd BufRead,BufNewFile *.js,*.json,*.html,*.css,*.svg set sw=2 tabstop=2
+    autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
 
 " Navigating with guides
-inoremap ;<Tab> <Esc>/<++><Enter>"_c4l
-vnoremap ;<Tab> <Esc>/<++><Enter>"_c4l
-map ;<Tab> <Esc>/<++><Enter>"_c4l
+    inoremap <Leader><Leader> <Esc>/<++><Enter>"_c4l
+    vnoremap <Leader><Leader> <Esc>/<++><Enter>"_c4l
+    map <Leader><Leader> <Esc>/<++><Enter>"_c4l
 
-"                         __
-" ____  __   _       ____| _|  _            /|\
-"/  __||  \ | | 0 __|    ||_ _| |_  __   /|\/|\
-"| |__ |   \| |__|  \ [} | _|_   _|/ _\  /|\/|\
-"\___ |  |\   |  | * \  _||_  | |_ |_ |  /|\ |
-"|___ /|_| \__|__|  _/_| |__| \__/ \__/   |    
-"                |_|
-"                
-"************************************************
-
-" HTML
-
- " autocmd FileType html inoremap ,html <!DOCTYPE html><Enter><html lang="en-us"><Enter><Tab><head><Enter><Tab><title><++></title><Enter><meta charset="UTF-8"><Enter><Backspace><Backspace><Backspace><<Backspace><Backspace></head><Enter><body><Enter><Enter><++><Enter><Enter></body><Enter></html><Esc>gg
- " 
- " autocmd FileType html inoremap ,dc <div class=""><++></div><Enter><++><Esc>k2f"i
- " autocmd FileType html inoremap ,d <div></div><Enter><++><Esc>kf<i
- " autocmd FileType html inoremap ,p  <p></p><Enter><++><Esc>0k2f<i
- " autocmd FileType html inoremap ,h1 <h1></h1><Enter><++><Esc>kf<i
- " autocmd FileType html inoremap ,h2 <h2></h2><Enter><++><Esc>kf<i
- " autocmd FileType html inoremap ,h3 <h3></h3><Enter><++><Esc>kf<i
- " autocmd FileType html inoremap ,h4 <h4></h4><Enter><++><Esc>kf<i
- " autocmd FileType html inoremap ,img <img src=""><Enter><++><Esc>k0/"<Enter>li
- " autocmd FileType html inoremap ,cl <Space>class=""<Esc>i
- " autocmd FileType html inoremap ,id <Space>id=""<Esc>i
- " autocmd FileType html inoremap ,src <Space>src=""<Esc>i
- " autocmd FileType html inoremap ,hd <header class=""><Enter><Enter><++><Enter><Enter></header><Esc>2k02f"i
- " autocmd FileType html inoremap ,sb <sidebar class=""><Enter><Enter><++><Enter><Enter></sidebar><Esc>2k02f"i
- " autocmd FileType html inoremap ,mn <main><Enter><Enter><Enter><Enter></main><Esc>2kA<Tab> 
- " autocmd FileType html inoremap ,ft <footer><Enter><Enter><Enter><Enter></footer><Esc>2kA<Tab>
- " autocmd FileType html inoremap ,l <Esc>F>i
-
-
-" General 
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap () ()<Esc>i
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap {} {}<Esc>i
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap [] []<Esc>i
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap {<Enter> {<Enter><Enter>}<Esc>ki<Tab>
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap (<Enter> (<Enter><Enter>)<Esc>ki<Tab>
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap [<Enter> [<Enter><Enter>]<Esc>ki<Tab>
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap " ""<Esc>i
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ' ''<Esc>i
- " autocmd Bufread,BufNewFile *.js,*.py,*.c,*.h,*.java,*.scala inoremap ` ``<Esc>i
-
-" JS
-
-autocmd FileType javascript inoremap ,rcl 
-
-" C
-autocmd FileType c inoremap #<Space> #include <stdio.h><Enter><Enter>int main()<Enter>{<Enter><Enter>}<Esc>ki<tab>
+" HTML Snippets
+    autocmd FileType html inoremap ,h1 <h1></h1><Esc>cit
