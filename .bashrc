@@ -18,6 +18,9 @@ export PATH
 # User specific aliases and functions
 # ===================================
 
+# Set path
+export PATH=$(cat $HOME/.path)
+
 fortune | cowsay -r
 
 # Set VI mode
@@ -35,3 +38,5 @@ alias gl="git log"
 # Python
 alias p2="python"
 alias p3="python3"
+
+export GOPATH=$HOME/go
