@@ -36,7 +36,11 @@ alias gcm="git commit -m"
 alias gl="git log"
 
 # Python
+alias python="python3"
 alias p2="python"
 alias p3="python3"
 
 export GOPATH=$HOME/go
+export CATALINA_HOME=/usr/local/tomcat9
+export CATALINA_HOME=/usr/local/tomcat9
+export JAVA_HOME=/usr/java/jdk-12.0.2/bin
