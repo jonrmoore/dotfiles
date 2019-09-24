@@ -24,8 +24,8 @@
         colo peachpuff
         setlocal formatoptions=1
         setlocal noexpandtab
-        map j gj
-        map k gk
+        " map j gj
+        " map k gk
         setlocal spell spelllang=en_us
         " Import thesaurus here
         set complete+=s
@@ -46,6 +46,12 @@
     call plug#begin('~/.vim/plugged')
         " Shade of Purple
         Plug 'Rigellute/shades-of-purple.vim'
+        " Iceberg
+        Plug 'cocopon/iceberg.vim'
+        " CSS Colors
+        Plug 'ap/vim-css-color'
+        " Sass Colors
+        Plug 'shmargum/vim-sass-colors'
         " Surround
         Plug 'tpope/vim-surround'
         " Fugitive
@@ -54,6 +60,8 @@
         Plug 'tpope/vim-commentary'
         " Code completion
         Plug 'valloric/youcompleteme'
+        " Easy Motion
+        Plug 'easymotion/vim-easymotion'
         " Emmet
         Plug 'mattn/emmet-vim'
         " Snippets
@@ -77,7 +85,7 @@
     syntax enable
     set t_Co=256
     set background=dark
-    colorscheme shades_of_purple
+    colorscheme iceberg
     highlight Normal ctermbg=NONE
     highlight nonText ctermbg=NONE
 
@@ -92,6 +100,10 @@
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
+
+" Fugitive statusline
+    " set statusline+=%{FugitiveStatusline()}
+    set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Sytnastic settings
     let g:syntastic_always_populate_loc_list = 1
@@ -119,5 +131,15 @@
     vnoremap <Leader><Leader> <Esc>/<++><Enter>"_c4l
     map <Leader><Leader> <Esc>/<++><Enter>"_c4l
 
+" ----
+    inoremap {<CR> {<CR>}<ESC>O
+    inoremap {;<CR> {<CR>};<ESC>O
+    inoremap {<Leader> {}<left>
+    inoremap [<Leader> []<left>
+    inoremap (<Leader> ()<left>
+    inoremap "<Leader> ""<left>
+    inoremap '<Leader> ''<left>
+    inoremap `<Leader> ``<left>
+    
 " HTML Snippets
     autocmd FileType html inoremap ,h1 <h1></h1><Esc>cit
