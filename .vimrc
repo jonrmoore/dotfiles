@@ -20,20 +20,20 @@
     let g:python3_host_prog = '/usr/bin/python3'
 
 " Word Processor Mode:
-    func! WordProcessorMode()
-        colo peachpuff
-        setlocal formatoptions=1
-        setlocal noexpandtab
-        " map j gj
-        " map k gk
-        setlocal spell spelllang=en_us
-        " Import thesaurus here
-        set complete+=s
-        set formatprg=par
-        setlocal wrap
-        setlocal linebreak
-    endfu
-    com! WP call WordProcessorMode()
+    " func! WordProcessorMode()
+    "     colo peachpuff
+    "     setlocal formatoptions=1
+    "     setlocal noexpandtab
+    "     " map j gj
+    "     " map k gk
+    "     setlocal spell spelllang=en_us
+    "     " Import thesaurus here
+    "     set complete+=s
+    "     set formatprg=par
+    "     setlocal wrap
+    "     setlocal linebreak
+    " endfu
+    " com! WP call WordProcessorMode()
 
 " Download vim-plug if not already present:
     if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
@@ -52,12 +52,16 @@
         Plug 'ap/vim-css-color'
         " Sass Colors
         Plug 'shmargum/vim-sass-colors'
+        " Auto Pairs
+        Plug 'jiangmiao/auto-pairs'
         " Surround
         Plug 'tpope/vim-surround'
         " Fugitive
         Plug 'tpope/vim-fugitive'
         " Commentary
         Plug 'tpope/vim-commentary'
+        " Vim Ruby
+        Plug 'vim-ruby/vim-ruby'
         " Code completion
         Plug 'valloric/youcompleteme'
         " Easy Motion
@@ -74,11 +78,24 @@
         Plug 'vim-syntastic/syntastic'	
         " Outliner
         Plug 'vimoutliner/vimoutliner'
-        
+        " Typescript
+        Plug 'leafgarland/typescript-vim'
+        " .tsx extension support
+        Plug 'ianks/vim-tsx'
+        " Plug 'HerringtonDarkholme/yats.vim'
+        " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+        " For async completion
+        Plug 'Shougo/deoplete.nvim'
+        " For Denite features
+        Plug 'Shougo/denite.nvim'
+        " Asych linting
+        Plug 'dense-analysis/ale'
     call plug#end()
 
 " Toggle Nerdtree
     map <C-n> :NERDTreeToggle<CR>
+" Enable deoplete at startup
+    let g:deoplete#enable_at_startup=1
 
 " Color scheme setup:
     set termguicolors
@@ -132,14 +149,14 @@
     map <Leader><Leader> <Esc>/<++><Enter>"_c4l
 
 " ----
-    inoremap {<CR> {<CR>}<ESC>O
-    inoremap {;<CR> {<CR>};<ESC>O
-    inoremap {<Leader> {}<left>
-    inoremap [<Leader> []<left>
-    inoremap (<Leader> ()<left>
-    inoremap "<Leader> ""<left>
-    inoremap '<Leader> ''<left>
-    inoremap `<Leader> ``<left>
+    " inoremap {<CR> {<CR>}<ESC>O
+    " inoremap {;<CR> {<CR>};<ESC>O
+    " inoremap {<Leader> {}<left>
+    " inoremap [<Leader> []<left>
+    " inoremap (<Leader> ()<left>
+    " inoremap "<Leader> ""<left>
+    " inoremap '<Leader> ''<left>
+    " inoremap `<Leader> ``<left>
     
 " HTML Snippets
     autocmd FileType html inoremap ,h1 <h1></h1><Esc>cit
