@@ -44,8 +44,8 @@
 
 " Plugins:
     call plug#begin('~/.vim/plugged')
-        " Shade of Purple
-        Plug 'Rigellute/shades-of-purple.vim'
+        " youcompleteme
+        Plug 'ycm-core/YouCompleteMe'
         " Iceberg
         Plug 'cocopon/iceberg.vim'
         " CSS Colors
@@ -62,8 +62,6 @@
         Plug 'tpope/vim-commentary'
         " Vim Ruby
         Plug 'vim-ruby/vim-ruby'
-        " Code completion
-        Plug 'valloric/youcompleteme'
         " Easy Motion
         Plug 'easymotion/vim-easymotion'
         " Emmet
@@ -82,10 +80,6 @@
         Plug 'leafgarland/typescript-vim'
         " .tsx extension support
         Plug 'ianks/vim-tsx'
-        " Plug 'HerringtonDarkholme/yats.vim'
-        " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-        " For async completion
-        Plug 'Shougo/deoplete.nvim'
         " For Denite features
         Plug 'Shougo/denite.nvim'
         " Asych linting
@@ -94,8 +88,6 @@
 
 " Toggle Nerdtree
     map <C-n> :NERDTreeToggle<CR>
-" Enable deoplete at startup
-    let g:deoplete#enable_at_startup=1
 
 " Color scheme setup:
     set termguicolors
@@ -111,6 +103,7 @@
     set nowritebackup
     set noswapfile
     set nobackup
+    set nohlsearch
 
 " Settings for syntastic
 " Syntastic statusline
