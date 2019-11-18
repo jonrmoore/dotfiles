@@ -1,163 +1,151 @@
-" Basics:
-    set nocompatible
-    colo murphy
-    syntax on
-    set number relativenumber
-    set autoindent
-    set indentexpr=off
-    set expandtab
+" Color and Style Configuration
+set termguicolors
+syntax enable
+set background=dark
+colorscheme wombat
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+let g:rainbow_active=1 " for rainbow brackets
 
-    set shiftwidth=4
-    set tabstop=4
-    set expandtab
-    set softtabstop=4
+" Unobstrusive line numbers
+hi CursorLine       guibg=#333333
+hi LineNr           guifg=#555555
 
+" Toggle Menu, Toolbar and Scollbar
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+    \set guioptions-=T <Bar>
+    \set guioptions-=m <bar>
+    \set guioptions-=r <bar>
+  \else <Bar>
+    \set guioptions+=T <Bar>
+    \set guioptions+=n <Bar>
+    \set guioptions+=r <Bar>
+  \endif<CR>
 
-" Leader:
-    let mapleader = ","
+" Plugins
+call plug#begin('~/.vim/plugged')
+    " youcompleteme
+    Plug 'ycm-core/YouCompleteMe'
+    " Rainbow Brackets
+    Plug 'luochen1990/rainbow'
+    " CSS Colors
+    Plug 'ap/vim-css-color'
+    " Sass Colors
+    Plug 'shmargum/vim-sass-colors'
+    " Auto Pairs
+    Plug 'jiangmiao/auto-pairs'
+    " Surround
+    Plug 'tpope/vim-surround'
+    " Fugitive
+    Plug 'tpope/vim-fugitive'
+    " Sleuth
+    Plug 'tpope/vim-sleuth'
+    " Sensible
+    Plug 'tpope/vim-sensible'
+    " Commentary
+    Plug 'tpope/vim-commentary'
+    " Vim Ruby
+    Plug 'vim-ruby/vim-ruby'
+    " Easy Motion
+    Plug 'easymotion/vim-easymotion'
+    " Emmet
+    Plug 'mattn/emmet-vim'
+    " Snippets
+    Plug 'honza/vim-snippets'
+    " Goyo for writing
+    Plug 'junegunn/goyo.vim'
+    " Vinegar
+    Plug 'tpope/vim-vinegar'
+    " Syntastic
+    Plug 'vim-syntastic/syntastic'	
+    " Outliner
+    Plug 'vimoutliner/vimoutliner'
+    " Typescript
+    Plug 'leafgarland/typescript-vim'
+    " .tsx extension support
+    Plug 'ianks/vim-tsx'
+    " For Denite features
+    Plug 'Shougo/denite.nvim'
+    " Asych linting
+    Plug 'dense-analysis/ale'
+call plug#end()
 
-"Python:
-    let g:python3_host_prog = '/usr/bin/python3'
+" Enable Sass syntax highlighting
+autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
+let g:deoplete#enable_at_startup = 1
 
-" Word Processor Mode:
-    " func! WordProcessorMode()
-    "     colo peachpuff
-    "     setlocal formatoptions=1
-    "     setlocal noexpandtab
-    "     " map j gj
-    "     " map k gk
-    "     setlocal spell spelllang=en_us
-    "     " Import thesaurus here
-    "     set complete+=s
-    "     set formatprg=par
-    "     setlocal wrap
-    "     setlocal linebreak
-    " endfu
-    " com! WP call WordProcessorMode()
+" File compatabiliy and configuration
+set nobackup
+set nowritebackup
+set noswapfile
+set nocompatible
+set ts=4
+set shiftwidth=4
+set expandtab
+set wrap
+set indentexpr=off
+set nohlsearch
+set number 
+set relativenumber
+nnoremap k gk
+nnoremap j gj
+" Leader
+let mapleader=","
 
-" Download vim-plug if not already present:
-    if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-        echo "Downloading junngunn/vim-plug to manage plugins..."
-        silent !mkdir -p ~/.config/nvim/autoload/
-        silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-    endif
+highlight Cursor guifg=black guibg=yellow
+highlight iCursor guifg=black guibg=yellow
+set guicursor=n-v-c:block-Cursor
+set guicursor=i:ver25-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
 
-" Plugins:
-    call plug#begin('~/.vim/plugged')
-        " youcompleteme
-        Plug 'ycm-core/YouCompleteMe'
-        " Iceberg
-        Plug 'cocopon/iceberg.vim'
-        " CSS Colors
-        Plug 'ap/vim-css-color'
-        " Sass Colors
-        Plug 'shmargum/vim-sass-colors'
-        " Auto Pairs
-        Plug 'jiangmiao/auto-pairs'
-        " Surround
-        Plug 'tpope/vim-surround'
-        " Fugitive
-        Plug 'tpope/vim-fugitive'
-        " Commentary
-        Plug 'tpope/vim-commentary'
-        " Vim Ruby
-        Plug 'vim-ruby/vim-ruby'
-        " Easy Motion
-        Plug 'easymotion/vim-easymotion'
-        " Emmet
-        Plug 'mattn/emmet-vim'
-        " Snippets
-        Plug 'honza/vim-snippets'
-        " Goyo for writing
-        Plug 'junegunn/goyo.vim'
-        " Nerdtree
-        Plug 'scrooloose/nerdtree'
-        " Syntastic
-        Plug 'vim-syntastic/syntastic'	
-        " Outliner
-        Plug 'vimoutliner/vimoutliner'
-        " Typescript
-        Plug 'leafgarland/typescript-vim'
-        " .tsx extension support
-        Plug 'ianks/vim-tsx'
-        " For Denite features
-        Plug 'Shougo/denite.nvim'
-        " Asych linting
-        Plug 'dense-analysis/ale'
-    call plug#end()
+" Font
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
 
-" Toggle Nerdtree
-    map <C-n> :NERDTreeToggle<CR>
+" Customize Status line color of current window & non-current windows
+highlight StatusLineNC guifg=SlateBlue guibg=Yellow
+highlight StatusLine guifg=Gray guibg=White
 
-" Color scheme setup:
-    set termguicolors
-    syntax enable
-    set t_Co=256
-    set background=dark
-    colorscheme iceberg
-    highlight Normal ctermbg=NONE
-    highlight nonText ctermbg=NONE
+set vb t_vb= " stop beeping or flashing the screen
 
-" No more double-spacing after period
-    set nojoinspaces
-    set nowritebackup
-    set noswapfile
-    set nobackup
-    set nohlsearch
+nnoremap <A-k> :m .-2<CR>==
+nnoremap <A-j> :m .+1<CR>==
+inoremap <A-k> <Esc>:m .-2<CR>gi
+inoremap <A-j> <Esc>:m .+1<CR>gi
+vnoremap <A-k> :m >.-2<CR>==
 
 " Mappings for moving lines up and down
-    nnoremap <A-j> :m .+1<CR>==
-    nnoremap <A-k> :m .-2<CR>==
-    inoremap <A-j> <Esc>:m .+1<CR>==gi
-    inoremap <A-k> <Esc>:m .-2<CR>==gi
-    vnoremap <A-j> :m '>+1<CR>gv=gv
-    vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>== 
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" Settings for syntastic
-" Syntastic statusline
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+" Easier split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-" Fugitive statusline
-    " set statusline+=%{FugitiveStatusline()}
-    set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+" Easier split resizing
+nnoremap <C-Up> <C-w>3- 
+nnoremap <C-Down> <C-w>3+
+nnoremap <C-Left> <C-w>5<
+nnoremap <C-Right> <C-w>5>
 
-" Sytnastic settings
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_loc_list_height=5
-    let g:syntastic_check_on_wq = 0
+" More split stuff: swap and quit inactive
+nnoremap <A-r> <C-w>R
+nnoremap <A-q> <C-w>o
 
-" Better symbols
-    let g:syntastic_error_symbol = 'XX'
-    let g:syntastic_warning_symbol = '!!'
-
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" fuck everything about the 'Press ENTER' message:
-    set showcmd
-    set shortmess=at
-
-" 2-space indent for html and json files
-    autocmd BufRead,BufNewFile *.js,*.json,*.html,*.css,*.svg set sw=2 tabstop=2
-    autocmd BufRead,BufNewFile Makefile,makefile,*Makefile,*makefile set noexpandtab
-
-" Navigating with guides
-    inoremap <Leader><Leader> <Esc>/<++><Enter>"_c4l
-    vnoremap <Leader><Leader> <Esc>/<++><Enter>"_c4l
-    map <Leader><Leader> <Esc>/<++><Enter>"_c4l
-
-" ----
-    " inoremap {<CR> {<CR>}<ESC>O
-    " inoremap {;<CR> {<CR>};<ESC>O
-    " inoremap {<Leader> {}<left>
-    " inoremap [<Leader> []<left>
-    " inoremap (<Leader> ()<left>
-    " inoremap "<Leader> ""<left>
-    " inoremap '<Leader> ''<left>
-    " inoremap `<Leader> ``<left>
-    
-" HTML Snippets
-    autocmd FileType html inoremap ,h1 <h1></h1><Esc>cit
