@@ -27,6 +27,8 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+    " Wombat color scheme
+    Plug 'vim-scripts/Wombat'
     " youcompleteme
     Plug 'ycm-core/YouCompleteMe'
     " Rainbow Brackets
