@@ -70,7 +70,25 @@ call plug#begin('~/.vim/plugged')
     " For Denite features
     Plug 'Shougo/denite.nvim'
     " Asych linting
-    Plug 'dense-analysis/ale'
+    " Plug 'dense-analysis/ale'
+    " Prettier
+    " Plug 'prettier/vim-prettier', {
+    "   \ 'do': 'yarn install',
+    "   \ 'for': [
+    "     \ 'javascript',
+    "     \ 'typescript',
+    "     \ 'css',
+    "     \ 'less',
+    "     \ 'sass',
+    "     \ 'scss',
+    "     \ 'json',
+    "     \ 'graphql',
+    "     \ 'markdown',
+    "     \ 'vue',
+    "     \ 'yaml',
+    "     \ 'html',
+    "     \ 'swift',
+    "     \ 'java'] }
 call plug#end()
 
 colorscheme onedark
@@ -79,7 +97,7 @@ autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
 let g:deoplete#enable_at_startup = 1
 
 " Nerd tree
-map <leader>n :NERDTreeToggle<CR>
+map <leader>n :silent :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " File compatabiliy and configuration
@@ -243,15 +261,17 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " set guicursor+=i:blinkwait10
 
 " Font
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
-  endif
-endif
+" if has("gui_running")
+"   if has("gui_gtk2")
+"     set guifont=Inconsolata\ 12
+"   elseif has("gui_macvim")
+"     set guifont=Menlo\ Regular:h14
+"   elseif has("gui_win32")
+"     set guifont=Consolas:h11:cANSI
+"   endif
+" endif
+
+set guifont=Fira\ Code\ 10
 
 " Customize Status line color of current window & non-current windows
 highlight StatusLineNC guifg=SlateBlue guibg=Yellow
