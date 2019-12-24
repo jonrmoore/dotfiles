@@ -71,24 +71,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/denite.nvim'
     " Asych linting
     " Plug 'dense-analysis/ale'
-    " Prettier
-    " Plug 'prettier/vim-prettier', {
-    "   \ 'do': 'yarn install',
-    "   \ 'for': [
-    "     \ 'javascript',
-    "     \ 'typescript',
-    "     \ 'css',
-    "     \ 'less',
-    "     \ 'sass',
-    "     \ 'scss',
-    "     \ 'json',
-    "     \ 'graphql',
-    "     \ 'markdown',
-    "     \ 'vue',
-    "     \ 'yaml',
-    "     \ 'html',
-    "     \ 'swift',
-    "     \ 'java'] }
+    " Submode
+    Plug 'kana/vim-submode'
 call plug#end()
 
 colorscheme onedark
@@ -99,6 +83,17 @@ let g:deoplete#enable_at_startup = 1
 " Nerd tree
 map <leader>n :silent :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" CoC Prettier -- enter `:Prettier` to format current buffer
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" Format for given range
+vmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
+
+" Open new splits to the right and bottom
+set splitbelow
+set splitright
 
 " File compatabiliy and configuration
 
@@ -213,9 +208,11 @@ set nohlsearch
 " relative numbers
 set number 
 set relativenumber
-nnoremap k gk
 
+" Scroll over wrapped lines as though they were normal
+nnoremap k gk
 nnoremap j gj
+
 " Leader
 let mapleader=","
 
@@ -300,10 +297,14 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " Easier split resizing
-nnoremap <C-Up> <C-w>3- 
-nnoremap <C-Down> <C-w>3+
-nnoremap <C-Left> <C-w>5<
-nnoremap <C-Right> <C-w>5>
+call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><down>', '<C-w>3-')
+call submode#map('grow/shrink', 'n', '', '<down>', '<C-w>3-')
+call submode#map('grow/shrink', 'n', '', '<up>', '<C-w>3+')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><right>', '<C-w>5>')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><left>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<left>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<right>', '<C-w>5>')
 
 " More split stuff: swap and quit inactive
 nnoremap <A-r> <C-w>R
