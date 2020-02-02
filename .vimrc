@@ -1,3 +1,65 @@
+set nocompatible
+filetype off
+" Plugins
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+    " Let Vundle handle itself
+    Plugin 'VundleVim/Vundle.vim'
+    " One Dark theme
+    Plugin 'joshdick/onedark.vim'
+    " youcompleteme
+    Plugin 'ycm-core/YouCompleteMe'
+    " CoC
+    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+    " Rainbow Brackets
+    Plugin 'luochen1990/rainbow'
+    " CSS Colors
+    Plugin 'ap/vim-css-color'
+    " Sass Colors
+    Plugin 'shmargum/vim-sass-colors'
+    " Auto Pairs
+    Plugin 'jiangmiao/auto-pairs'
+    " Surround
+    Plugin 'tpope/vim-surround'
+    " Fugitive
+    Plugin 'tpope/vim-fugitive'
+    " NERD Tree
+    Plugin 'scrooloose/nerdtree'
+    " Sleuth
+    Plugin 'tpope/vim-sleuth'
+    " Sensible
+    Plugin 'tpope/vim-sensible'
+    " Commentary
+    Plugin 'tpope/vim-commentary'
+    " Vim Ruby
+    Plugin 'vim-ruby/vim-ruby'
+    " Easy Motion
+    Plugin 'easymotion/vim-easymotion'
+    " Emmet
+    Plugin 'mattn/emmet-vim'
+    " Snippets
+    Plugin 'honza/vim-snippets'
+    " Goyo for writing
+    Plugin 'junegunn/goyo.vim'
+    " Vinegar
+    Plugin 'tpope/vim-vinegar'
+    " Syntastic
+    " Plugin 'vim-syntastic/syntastic'	
+    " Outliner
+    Plugin 'vimoutliner/vimoutliner'
+    " Typescript
+    Plugin 'leafgarland/typescript-vim'
+    " .tsx extension support
+    Plugin 'ianks/vim-tsx'
+    " For Denite features
+    Plugin 'Shougo/denite.nvim'
+    " Asych linting
+    " Plugin 'dense-analysis/ale'
+    " Submode
+    Plugin 'kana/vim-submode'
+call vundle#end()
+filetype plugin indent on
 " Color and Style Configuration
 "
 " set termguicolors
@@ -21,59 +83,6 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
     \set guioptions+=n <Bar>
     \set guioptions+=r <Bar>
   \endif<CR>
-
-" Plugins
-call plug#begin('~/.vim/plugged')
-    Plug 'joshdick/onedark.vim'
-    " youcompleteme
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Rainbow Brackets
-    Plug 'luochen1990/rainbow'
-    " CSS Colors
-    Plug 'ap/vim-css-color'
-    " Sass Colors
-    Plug 'shmargum/vim-sass-colors'
-    " Auto Pairs
-    Plug 'jiangmiao/auto-pairs'
-    " Surround
-    Plug 'tpope/vim-surround'
-    " Fugitive
-    Plug 'tpope/vim-fugitive'
-    " NERD Tree
-    Plug 'scrooloose/nerdtree'
-    " Sleuth
-    Plug 'tpope/vim-sleuth'
-    " Sensible
-    Plug 'tpope/vim-sensible'
-    " Commentary
-    Plug 'tpope/vim-commentary'
-    " Vim Ruby
-    Plug 'vim-ruby/vim-ruby'
-    " Easy Motion
-    Plug 'easymotion/vim-easymotion'
-    " Emmet
-    Plug 'mattn/emmet-vim'
-    " Snippets
-    Plug 'honza/vim-snippets'
-    " Goyo for writing
-    Plug 'junegunn/goyo.vim'
-    " Vinegar
-    Plug 'tpope/vim-vinegar'
-    " Syntastic
-    Plug 'vim-syntastic/syntastic'	
-    " Outliner
-    Plug 'vimoutliner/vimoutliner'
-    " Typescript
-    Plug 'leafgarland/typescript-vim'
-    " .tsx extension support
-    Plug 'ianks/vim-tsx'
-    " For Denite features
-    Plug 'Shougo/denite.nvim'
-    " Asych linting
-    " Plug 'dense-analysis/ale'
-    " Submode
-    Plug 'kana/vim-submode'
-call plug#end()
 
 colorscheme onedark
 " Enable Sass syntax highlighting
@@ -291,10 +300,16 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Easier split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
+nnoremap sj <C-W><C-J>
+nnoremap sk <C-W><C-K>
+nnoremap sl <C-W><C-L>
+nnoremap sh <C-W><C-H>
+nnoremap ss :split<Enter>
+nnoremap sv :vs<Enter>
 
 " Easier split resizing
 call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')
