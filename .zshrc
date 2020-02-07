@@ -77,6 +77,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+set -o vi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
