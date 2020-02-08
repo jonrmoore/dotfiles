@@ -14,8 +14,14 @@ call vundle#begin()
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     " Rainbow Brackets
     Plugin 'luochen1990/rainbow'
-    " CSS Colors
+
+    " Language Support
+    Plugin 'fatih/vim-go'
     Plugin 'ap/vim-css-color'
+    Plugin 'vim-ruby/vim-ruby'
+    Plugin 'leafgarland/typescript-vim'
+    Plugin 'ianks/vim-tsx'
+
     " Sass Colors
     Plugin 'shmargum/vim-sass-colors'
     " Auto Pairs
@@ -33,7 +39,6 @@ call vundle#begin()
     " Commentary
     Plugin 'tpope/vim-commentary'
     " Vim Ruby
-    Plugin 'vim-ruby/vim-ruby'
     " Easy Motion
     Plugin 'easymotion/vim-easymotion'
     " Emmet
@@ -44,14 +49,8 @@ call vundle#begin()
     Plugin 'junegunn/goyo.vim'
     " Vinegar
     Plugin 'tpope/vim-vinegar'
-    " Syntastic
-    " Plugin 'vim-syntastic/syntastic'	
     " Outliner
     Plugin 'vimoutliner/vimoutliner'
-    " Typescript
-    Plugin 'leafgarland/typescript-vim'
-    " .tsx extension support
-    Plugin 'ianks/vim-tsx'
     " For Denite features
     Plugin 'Shougo/denite.nvim'
     " Asych linting
@@ -83,7 +82,6 @@ map <silent> <F2> :if &guioptions =~# 'T' <Bar>
     \set guioptions+=n <Bar>
     \set guioptions+=r <Bar>
   \endif<CR>
-
 colorscheme onedark
 " Enable Sass syntax highlighting
 autocmd FileType css,sass,scss setlocal omnifunc=csscomplete#CompleteCSS
@@ -112,6 +110,9 @@ set hidden
 " no backup files
 set nobackup
 set nowritebackup
+
+" keep backupcopy for webpack
+set backupcopy
 
 " no swap files
 set noswapfile
@@ -207,8 +208,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " set tab to 4
-set ts=4
-set shiftwidth=4
+set ts=2
+set shiftwidth=2
 set expandtab
 set wrap
 set indentexpr=off
