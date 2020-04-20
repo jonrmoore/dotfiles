@@ -3,3 +3,4 @@ node_modules
 configstore
 Microsoft\\VisualStudio Services/
 xbuild
+.netrwhist
