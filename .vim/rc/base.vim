@@ -7,6 +7,8 @@ colorscheme onedark
 " Unobstrusive line numbers
 hi CursorLine       guibg=#333333
 hi LineNr           guifg=#555555
+hi FoldColumn       guifg=NONE
+set numberwidth=3
 " Toggle Menu, Toolbar and Scollbar
 set guioptions-=m
 set guioptions-=T
@@ -30,12 +32,10 @@ set splitright
 " if hidden is not set, textedit might fail
 set hidden
 
-" no backup files
-set nobackup
-set nowritebackup
+set wildmode=list:full
 
 " keep backupcopy for webpack
-set backupcopy
+set backupcopy=yes
 
 " no swap files
 set noswapfile
@@ -46,9 +46,6 @@ set cmdheight=2
 
 " Shorten update time from default 4000 to 300
 set updatetime=300
-
-" No |inc-completion-menu| messages
-set shortmess+=c
 
 " Always show sign columns
 set signcolumn=yes
@@ -68,26 +65,6 @@ set relativenumber
 nnoremap k gk
 nnoremap j gj
 
-" Leader
-let mapleader=","
-" highlight Cursor guifg=black guibg=yellow
-" highlight iCursor guifg=black guibg=yellow
-" set guicursor=n-v-c:block-Cursor
-" set guicursor=i:ver25-iCursor
-" set guicursor+=n-v-c:blinkon0
-" set guicursor+=i:blinkwait10
-
-" Font
-" if has("gui_running")
-"   if has("gui_gtk2")
-"     set guifont=Inconsolata\ 12
-"   elseif has("gui_macvim")
-"     set guifont=Menlo\ Regular:h14
-"   elseif has("gui_win32")
-"     set guifont=Consolas:h11:cANSI
-"   endif
-" endif
-
 set guifont=Fira\ Code\ 10
 
 " Customize Status line color of current window & non-current windows
@@ -95,10 +72,4 @@ highlight StatusLineNC guifg=SlateBlue guibg=Yellow
 highlight StatusLine guifg=Gray guibg=White
 
 set vb t_vb= " stop beeping or flashing the screen
-
-
-
-
-
-
 

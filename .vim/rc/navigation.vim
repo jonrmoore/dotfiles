@@ -7,24 +7,20 @@ inoremap <A-j> <Esc>:m .+1<CR>gi
 vnoremap <A-k> :m >.-2<CR>==
 
 " Mappings -or moving lines up and down
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>== 
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <c-j> :m .+1<CR>==
+nnoremap <c-k> :m .-2<CR>== 
+inoremap <c-j> <Esc>:m .+1<CR>==gi
+inoremap <c-k> <Esc>:m .-2<CR>==gi
+vnoremap <c-j> :m '>+1<CR>gv=gv
+vnoremap <c-k> :m '<-2<CR>gv=gv
 
 " Easier split navigation
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
-nnoremap sj <C-W><C-J>
-nnoremap sk <C-W><C-K>
-nnoremap sl <C-W><C-L>
-nnoremap sh <C-W><C-H>
-nnoremap ss :split<Enter>
-nnoremap sv :vs<Enter>
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
+nnoremap <leader>s :split<Enter>
+nnoremap <leader>v :vs<Enter>
 
 " Easier split resizing
 call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')

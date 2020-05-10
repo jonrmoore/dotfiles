@@ -1,74 +1,121 @@
+let mapleader=","
+let maplocalleader="\\"
+inoremap <c-k> <esc>
+vnoremap <c-k> <esc>
+nnoremap <leader>j ddp
+nnoremap <leader>k ddkP
+inoremap <leader>u <esc>gUiwea
+nnoremap <leader>u gUiwE
+
+nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+nnoremap H ^
+nnoremap L $
+
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+
+iabbrev @@ jonmoore510@gmail.com
+iabbrev ccopy Copyright 2020 Jon Moore, all rights reserved.
+
+iabbrev shoudl should
+iabbrev coudl could
+iabbrev woudl would
+
+autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
+
+augroup filetype_html
+	autocmd!
+	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+" Enable Prettier autoformatter
+let g:prettier#autoformat=1
+" Don't require files to be marked with @prettier/@format decorators
+let g:prettier#autoformat_require_pragma=0
+
+" No more 'Hit Enter' messages
+set shortmess=at
+
+" Vimscript file settings ------------
+" {{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" set statusline=%.50F%=Current\ line: %4l\ of\ %4L
+
+set statusline=%.50F\ %{strftime('%c')}
+set statusline+=%=
+set statusline+=\ line\ >>%4l/%2L\ ::\ column\ >>%4c\ 
+
 call plug#begin()
+Plug 'francoiscabrol/ranger.vim'
+      Plug 'ycm-core/YouCompleteMe'
+      
+   " One Dark theme
+   Plug 'joshdick/onedark.vim'
 
-    " Let Vundle handle itself
-      Plug 'VundleVim/Vundle.vim'
+ " Rainbow Brackets
+   Plug 'luochen1990/rainbow'
 
-    " One Dark theme
-      Plug 'joshdick/onedark.vim'
+ " Language Support
+   " Plug 'fatih/vim-go'
+   Plug 'ap/vim-css-color'
+   " Plug 'vim-ruby/vim-ruby'
+   Plug 'leafgarland/typescript-vim'
+   Plug 'ianks/vim-tsx'
 
-    " CoC
-      Plug 'neoclide/coc.nvim', {'branch': 'release'}
+ " Sass Colors
+   Plug 'shmargum/vim-sass-colors'
 
-    " Rainbow Brackets
-      Plug 'luochen1990/rainbow'
+ " Auto Pairs
+   Plug 'jiangmiao/auto-pairs'
 
-    " Language Support
-      Plug 'fatih/vim-go'
-      Plug 'ap/vim-css-color'
-      Plug 'vim-ruby/vim-ruby'
-      Plug 'leafgarland/typescript-vim'
-      Plug 'ianks/vim-tsx'
+ " Surround
+   Plug 'tpope/vim-surround'
 
-    " Sass Colors
-      Plug 'shmargum/vim-sass-colors'
+ " Fugitive
+   Plug 'tpope/vim-fugitive'
 
-    " Auto Pairs
-      Plug 'jiangmiao/auto-pairs'
+ " Sleuth
+   Plug 'tpope/vim-sleuth'
 
-    " Surround
-      Plug 'tpope/vim-surround'
+ " Sensible
+   Plug 'tpope/vim-sensible'
 
-    " Fugitive
-      Plug 'tpope/vim-fugitive'
+ " Commentary
+   Plug 'tpope/vim-commentary'
 
-    " NERD Tree
-      Plug 'scrooloose/nerdtree'
+ " Vinegar
+   Plug 'tpope/vim-vinegar'
 
-    " Sleuth
-      Plug 'tpope/vim-sleuth'
+ " Easy Motion
+   Plug 'easymotion/vim-easymotion'
 
-    " Sensible
-      Plug 'tpope/vim-sensible'
+ " Emmet
+   Plug 'mattn/emmet-vim'
 
-    " Commentary
-      Plug 'tpope/vim-commentary'
+ " Snippets
+   Plug 'honza/vim-snippets'
 
-    " Vinegar
-      Plug 'tpope/vim-vinegar'
+ " Goyo for writing
+   Plug 'junegunn/goyo.vim'
 
-    " Easy Motion
-      Plug 'easymotion/vim-easymotion'
-     
-    " Emmet
-      Plug 'mattn/emmet-vim'
+ " 	Outliner
+   Plug 'vimoutliner/vimoutliner'
 
-    " Snippets
-      Plug 'honza/vim-snippets'
+ " For Denite features
+   Plug 'Shougo/denite.nvim'
 
-    " Goyo for writing
-      Plug 'junegunn/goyo.vim'
+ " Prettier
+   Plug 'prettier/vim-prettier'
 
-    " Outliner
-      Plug 'vimoutliner/vimoutliner'
-
-    " For Denite features
-      Plug 'Shougo/denite.nvim'
-
-    " Asych linting
-      Plug 'dense-analysis/ale'
-
-    " Submode
-      Plug 'kana/vim-submode'
+ " Submode
+   Plug 'kana/vim-submode'
 
 call plug#end()
 
