@@ -60,6 +60,9 @@ call plug#begin()
  " Goyo for writing
    Plug 'junegunn/goyo.vim'
 
+ " Goyo for writing
+   Plug 'junegunn/limelight.vim'
+
  " 	Outliner
    Plug 'vimoutliner/vimoutliner'
 
@@ -257,6 +260,11 @@ filetype plugin indent on
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
         " Show hidden files in NERDTree
         let g:NERDTreeShowHidden=1
+
+" Limelight
+        " Compatibility with One Dark colorscheme
+        let g:limelight_conceal_ctermfg = 'gray'
+        let g:limelight_conceal_ctermfg = 240
 " }}}
 
 " for file in split(globpath("~/.vim/rc", "*.vim"), '\n')
