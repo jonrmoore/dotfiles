@@ -1,60 +1,15 @@
-let mapleader=","
-let maplocalleader="\\"
-inoremap <c-k> <esc>
-vnoremap <c-k> <esc>
-nnoremap <leader>j ddp
-nnoremap <leader>k ddkP
-inoremap <leader>u <esc>gUiwea
-nnoremap <leader>u gUiwE
-
-nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-nnoremap H ^
-nnoremap L $
-
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
-
-iabbrev @@ jonmoore510@gmail.com
-iabbrev ccopy Copyright 2020 Jon Moore, all rights reserved.
-
-iabbrev shoudl should
-iabbrev coudl could
-iabbrev woudl would
-
-autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
-
-augroup filetype_html
-	autocmd!
-	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
-augroup END
-
-" Enable Prettier autoformatter
-let g:prettier#autoformat=1
-" Don't require files to be marked with @prettier/@format decorators
-let g:prettier#autoformat_require_pragma=0
-
-" No more 'Hit Enter' messages
-set shortmess=at
-
-" Vimscript file settings ------------
+" ---------------------------------------- Plugins
 " {{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-" }}}
-
-" set statusline=%.50F%=Current\ line: %4l\ of\ %4L
-
-set statusline=%.50F\ %{strftime('%c')}
-set statusline+=%=
-set statusline+=\ line\ >>%4l/%2L\ ::\ column\ >>%4c\ 
-
 call plug#begin()
-Plug 'francoiscabrol/ranger.vim'
-      Plug 'ycm-core/YouCompleteMe'
+   
+   " Ranger integration
+   Plug 'francoiscabrol/ranger.vim'
+
+   " Code completion
+   Plug 'ycm-core/YouCompleteMe'
+
+   " NERDTree for file navigation
+   Plug 'preservim/nerdtree'
       
    " One Dark theme
    Plug 'joshdick/onedark.vim'
@@ -63,13 +18,13 @@ Plug 'francoiscabrol/ranger.vim'
    Plug 'luochen1990/rainbow'
 
  " Language Support
-   " Plug 'fatih/vim-go'
-   Plug 'ap/vim-css-color'
-   " Plug 'vim-ruby/vim-ruby'
-   Plug 'leafgarland/typescript-vim'
-   Plug 'ianks/vim-tsx'
-
- " Sass Colors
+   Plug 'fatih/vim-go' " Go
+   Plug 'ap/vim-css-color' " CSS
+   Plug 'vim-ruby/vim-ruby' " Ruby
+   Plug 'leafgarland/typescript-vim' " Typescript
+   Plug 'ianks/vim-tsx' " TSX
+  
+   " Sass Colors
    Plug 'shmargum/vim-sass-colors'
 
  " Auto Pairs
@@ -118,7 +73,192 @@ Plug 'francoiscabrol/ranger.vim'
    Plug 'kana/vim-submode'
 
 call plug#end()
+" }}}
 
-for file in split(globpath("~/.vim/rc", "*.vim"), '\n')
-  execute 'source' fnameescape(file)
-endfor
+" ---------------------------------------- Base settings
+" {{{
+
+" Leaders
+let mapleader=","
+let maplocalleader="\\"
+
+" Ensure inoperability with old VI commands
+set nocompatible
+
+" No swap files
+set noswapfile
+
+" Don't highlight search results by default
+set nohlsearch
+
+" Always show sign column
+set signcolumn=yes
+
+" Better display for messages
+set cmdheight=2
+
+" Width for column with line numbers
+set numberwidth=3
+
+" Shorten update time from default 4000 to 300
+set updatetime=300
+
+" Set filetype detection off by default
+filetype off
+
+" Enable syntax highlighting
+syntax enable
+
+" All folds hidden by default in new buffer
+set foldlevelstart=0
+
+" No more 'Hit Enter' messages
+set shortmess=at
+
+" Tab through file options
+set wildmode=list:full
+
+" Open new splits to the right and bottom
+set splitbelow splitright
+
+" For my benefit and the annoyance of everyone else
+set number relativenumber
+
+" Tab stuff
+set ts=2
+set shiftwidth=2
+set expandtab
+set wrap
+set indentexpr=off
+
+" Scroll over wrapped lines as though they were normal
+nnoremap k gk
+nnoremap j gj
+
+" Font
+set guifont=Fira\ Code\ 10
+
+" Color Scheme
+colorscheme onedark
+
+" Toggle Menu, Toolbar and Scollbar (if applicable)
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+    \set guioptions-=T <Bar>
+    \set guioptions-=m <bar>
+    \set guioptions-=r <bar>
+  \else <Bar>
+    \set guioptions+=T <Bar>
+    \set guioptions+=n <Bar>
+    \set guioptions+=r <Bar>
+  \endif<CR>
+
+
+" }}}
+
+" ---------------------------------------- Statusline
+" {{{
+set statusline=%.50F\ %{strftime('%c')}
+set statusline+=%=
+set statusline+=\ line\ >>%4l/%2L\ ::\ column\ >>%4c\ 
+" }}}
+
+" ---------------------------------------- Navigation
+" {{{
+
+" Mappings -or moving lines up and down
+nnoremap <c-j> :m .+1<CR>==
+nnoremap <c-k> :m .-2<CR>== 
+inoremap <c-j> <Esc>:m .+1<CR>==gi
+inoremap <c-k> <Esc>:m .-2<CR>==gi
+vnoremap <c-j> :m '>+1<CR>gv=gv
+vnoremap <c-k> :m '<-2<CR>gv=gv
+
+" Easier split navigation
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
+nnoremap <leader>s :split<Enter>
+nnoremap <leader>v :vs<Enter>
+
+" Easier split resizing
+call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><down>', '<C-w>3-')
+call submode#map('grow/shrink', 'n', '', '<down>', '<C-w>3-')
+call submode#map('grow/shrink', 'n', '', '<up>', '<C-w>3+')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><right>', '<C-w>5>')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><left>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<left>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<right>', '<C-w>5>')
+
+" }}}
+
+" ---------------------------------------- Keybindings
+" {{{
+inoremap <leader>u <esc>gUiwea
+nnoremap <leader>u gUiwE
+
+nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+nnoremap H ^
+nnoremap L $
+
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+" }}}
+
+" ---------------------------------------- Abbreviations
+" {{{
+iabbrev @@ jonmoore510@gmail.com
+iabbrev ccopy Copyright 2020 Jon Moore, all rights reserved.
+
+iabbrev shoudl should
+iabbrev coudl could
+iabbrev woudl would
+" }}}
+
+" ---------------------------------------- FileType Settings
+" {{{
+autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
+
+augroup filetype_html
+	autocmd!
+	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker nowrap
+augroup END
+" }}}
+
+" ---------------------------------------- Plugin settings
+" {{{
+filetype plugin indent on
+
+" Vinegar
+        let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+        set modifiable
+" Prettier
+        " Enable Prettier autoformatter
+        let g:prettier#autoformat=1
+        " Don't require files to be marked with @prettier/@format decorators
+        let g:prettier#autoformat_require_pragma=0
+" CSS, SCSS, SASS, LESS
+        autocmd FileType css,sass,scss,less setlocal omnifunc=csscomplete#CompleteCSS
+        let g:deoplete#enable_at_startup = 1
+" NERDTree
+        " Leader n to toggle nerdtree
+        map <leader>n :silent :NERDTreeToggle<CR>
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        " Show hidden files in NERDTree
+        let g:NERDTreeShowHidden=1
+" }}}
+
+" for file in split(globpath("~/.vim/rc", "*.vim"), '\n')
+"   execute 'source' fnameescape(file)
+" endfor
