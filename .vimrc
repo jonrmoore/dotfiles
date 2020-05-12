@@ -14,6 +14,9 @@ call plug#begin()
    " One Dark theme
    Plug 'joshdick/onedark.vim'
 
+   " Gruvbox theme
+   Plug 'morhetz/gruvbox'
+
  " Rainbow Brackets
    Plug 'luochen1990/rainbow'
 
@@ -94,9 +97,6 @@ set noswapfile
 " Don't highlight search results by default
 set nohlsearch
 
-" Always show sign column
-set signcolumn=yes
-
 " Better display for messages
 set cmdheight=2
 
@@ -110,7 +110,7 @@ set updatetime=300
 filetype off
 
 " Enable syntax highlighting
-syntax enable
+syntax on
 
 " All folds hidden by default in new buffer
 set foldlevelstart=0
@@ -142,7 +142,8 @@ nnoremap j gj
 set guifont=Fira\ Code\ 10
 
 " Color Scheme
-colorscheme onedark
+" colorscheme onedark
+colorscheme gruvbox
 
 " Toggle Menu, Toolbar and Scollbar (if applicable)
 set guioptions-=m
@@ -201,15 +202,30 @@ call submode#map('grow/shrink', 'n', '', '<right>', '<C-w>5>')
 
 " ---------------------------------------- Keybindings
 " {{{
-inoremap <leader>u <esc>gUiwea
-nnoremap <leader>u gUiwE
+" Leader w/q to write/quit buffer
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
 
+" Leader rn to toggle relative number
+nnoremap <leader>rn :set relativenumber!<cr>
+
+" Leader U/u to capitalize/lowercase word
+inoremap <leader>u <esc>guiwea
+nnoremap <leader>u guiwE
+inoremap <leader>U <esc>gUiwea
+nnoremap <leader>U gUiwE
+
+" Open .vimrc in side buffer
 nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+" Source .vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" Nicer mapping
 nnoremap H ^
 nnoremap L $
 
+" Wrap current word in quotation marks
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 " }}}
@@ -231,6 +247,7 @@ autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
 augroup filetype_html
 	autocmd!
 	autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+	autocmd FileType html nnoremap <buffer> <leader>html5 i<!DOCTYPE<space>html><cr><html<space>lang="en"><cr><tab><head><cr><tab><meta<space>charset="UTF-8"><cr><meta<space>name="viewport"<space>content="width=device-width,<space>initial-scale=1.0"><cr><title>Document</title><cr></head><cr><body><cr></body><cr></html><esc>:Prettier<cr>kcit<cr><esc>O
 augroup END
 
 augroup filetype_vim
@@ -265,6 +282,9 @@ filetype plugin indent on
         " Compatibility with One Dark colorscheme
         let g:limelight_conceal_ctermfg = 'gray'
         let g:limelight_conceal_ctermfg = 240
+
+        " Toggle Limelight
+        nnoremap <leader>L :Limelight!!<cr>
 " }}}
 
 " for file in split(globpath("~/.vim/rc", "*.vim"), '\n')
