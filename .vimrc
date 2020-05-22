@@ -1,24 +1,31 @@
 " ---------------------------------------- Plugins
 " {{{
 call plug#begin()
-   
-   " Ranger integration
-   Plug 'francoiscabrol/ranger.vim'
 
    " Code completion
    Plug 'ycm-core/YouCompleteMe'
 
+   " Syntastic
+   Plug 'vim-syntastic/syntastic'
+
    " NERDTree for file navigation
    Plug 'preservim/nerdtree'
-      
-   " One Dark theme
-   Plug 'joshdick/onedark.vim'
 
-   " Gruvbox theme
+   Plug 'cocopon/iceberg.vim'
+   Plug 'lifepillar/vim-solarized8'
+   Plug 'flazz/vim-colorschemes'
    Plug 'morhetz/gruvbox'
+   Plug 'tomasr/molokai'
+   Plug 'ajh17/spacegray.vim'
 
  " Rainbow Brackets
    Plug 'luochen1990/rainbow'
+
+   " Sass Colors
+   Plug 'shmargum/vim-sass-colors'
+
+ " Auto Pairs
+   Plug 'jiangmiao/auto-pairs'
 
  " Language Support
    Plug 'fatih/vim-go' " Go
@@ -26,12 +33,14 @@ call plug#begin()
    Plug 'vim-ruby/vim-ruby' " Ruby
    Plug 'leafgarland/typescript-vim' " Typescript
    Plug 'ianks/vim-tsx' " TSX
+   Plug 'HerringtonDarkholme/yats.vim'
+   Plug 'OmniSharp/Omnisharp-vim' " C#/Dotnet
   
-   " Sass Colors
-   Plug 'shmargum/vim-sass-colors'
+   " Ctrl-P
+   Plug 'ctrlpvim/ctrlp.vim'
 
- " Auto Pairs
-   Plug 'jiangmiao/auto-pairs'
+   " Async build and test dispatcher
+   Plug 'tpope/vim-dispatch'
 
  " Surround
    Plug 'tpope/vim-surround'
@@ -78,11 +87,22 @@ call plug#begin()
  " Submode
    Plug 'kana/vim-submode'
 
+   if has('nvim')
+     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+   else
+     Plug 'Shougo/deoplete.nvim'
+     Plug 'roxma/nvim-yarp'
+     Plug 'roxma/vim-hug-neovim-rpc'
+   endif
+
+   Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+
 call plug#end()
 " }}}
 
 " ---------------------------------------- Base settings
 " {{{
+"
 
 " Leaders
 let mapleader=","
@@ -106,8 +126,9 @@ set numberwidth=3
 " Shorten update time from default 4000 to 300
 set updatetime=300
 
-" Set filetype detection off by default
-filetype off
+" Set filetype and syntax on for syntax highlighting to work
+filetype plugin on
+syntax on
 
 " Enable syntax highlighting
 syntax on
@@ -142,22 +163,24 @@ nnoremap j gj
 set guifont=Fira\ Code\ 10
 
 " Color Scheme
-" colorscheme onedark
+" colorscheme iceberg
+" colorscheme molokai
 colorscheme gruvbox
+set background=dark
 
 " Toggle Menu, Toolbar and Scollbar (if applicable)
-set guioptions-=m
-set guioptions-=T
-set guioptions-=r
-map <silent> <F2> :if &guioptions =~# 'T' <Bar>
-    \set guioptions-=T <Bar>
-    \set guioptions-=m <bar>
-    \set guioptions-=r <bar>
-  \else <Bar>
-    \set guioptions+=T <Bar>
-    \set guioptions+=n <Bar>
-    \set guioptions+=r <Bar>
-  \endif<CR>
+" set guioptions-=m
+" set guioptions-=T
+" set guioptions-=r
+" map <silent> <F2> :if &guioptions =~# 'T' <Bar>
+"     \set guioptions-=T <Bar>
+"     \set guioptions-=m <bar>
+"     \set guioptions-=r <bar>
+"   \else <Bar>
+"     \set guioptions+=T <Bar>
+"     \set guioptions+=n <Bar>
+"     \set guioptions+=r <Bar>
+"   \endif<CR>
 
 
 " }}}
@@ -188,15 +211,20 @@ nnoremap <leader>h <C-W><C-H>
 nnoremap <leader>s :split<Enter>
 nnoremap <leader>v :vs<Enter>
 
+nnoremap <leader>jd :YcmCompleter GoTo<cr>
+nnoremap <leader>b :buffers<cr>
+nnoremap <leader>bj :bprevious<cr>
+nnoremap <leader>bk :bNext<cr>
+
 " Easier split resizing
 call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')
 call submode#enter_with('grow/shrink', 'n', '', '<leader><down>', '<C-w>3-')
 call submode#map('grow/shrink', 'n', '', '<down>', '<C-w>3-')
 call submode#map('grow/shrink', 'n', '', '<up>', '<C-w>3+')
-call submode#enter_with('grow/shrink', 'n', '', '<leader><right>', '<C-w>5>')
-call submode#enter_with('grow/shrink', 'n', '', '<leader><left>', '<C-w>5<')
-call submode#map('grow/shrink', 'n', '', '<left>', '<C-w>5<')
-call submode#map('grow/shrink', 'n', '', '<right>', '<C-w>5>')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><left>', '<C-w>5>')
+call submode#enter_with('grow/shrink', 'n', '', '<leader><right>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<right>', '<C-w>5<')
+call submode#map('grow/shrink', 'n', '', '<left>', '<C-w>5>')
 
 " }}}
 
@@ -243,6 +271,7 @@ iabbrev woudl would
 " ---------------------------------------- FileType Settings
 " {{{
 autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
+autocmd BufNewFile,BufRead *.cshtml set syntax=html
 
 augroup filetype_html
 	autocmd!
@@ -259,6 +288,7 @@ augroup END
 " ---------------------------------------- Plugin settings
 " {{{
 filetype plugin indent on
+syntax on
 
 " Vinegar
         let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
@@ -285,6 +315,8 @@ filetype plugin indent on
 
         " Toggle Limelight
         nnoremap <leader>L :Limelight!!<cr>
+" Deoplete
+         let g:deoplete#enable_at_startup = 1
 " }}}
 
 " for file in split(globpath("~/.vim/rc", "*.vim"), '\n')
