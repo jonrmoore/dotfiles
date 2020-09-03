@@ -18,15 +18,12 @@ call plug#begin()
    Plug 'vim-syntastic/syntastic'
 
    " NERDTree for file navigation
-   Plug 'preservim/nerdtree'
+   " Plug 'preservim/nerdtree'
 
-   Plug 'cocopon/iceberg.vim'
+   " Plug 'cocopon/iceberg.vim'
    Plug 'lifepillar/vim-solarized8'
    Plug 'flazz/vim-colorschemes'
-   Plug 'dikiaap/minimalist'
-   " Plug 'morhetz/gruvbox'
    Plug 'tomasr/molokai'
-   " Plug 'ajh17/spacegray.vim'
 
  " Rainbow Brackets
    Plug 'luochen1990/rainbow'
@@ -41,6 +38,8 @@ call plug#begin()
    Plug 'fatih/vim-go' " Go
    Plug 'ap/vim-css-color' " CSS
    Plug 'vim-ruby/vim-ruby' " Ruby
+   Plug 'pangloss/vim-javascript' " Javascript
+   Plug 'MaxMEllon/vim-jsx-pretty' " JSX
    Plug 'leafgarland/typescript-vim' " Typescript
    Plug 'ianks/vim-tsx' " TSX
    Plug 'HerringtonDarkholme/yats.vim'
@@ -49,10 +48,6 @@ call plug#begin()
    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   
    " For Bazel
-   Plug 'google/vim-maktaba'
-   Plug 'bazelbuild/vim-bazel'
-   " Ctrl-P
-   " Plug 'ctrlpvim/ctrlp.vim'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    Plug 'mileszs/ack.vim'
 
