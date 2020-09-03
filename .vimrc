@@ -1,3 +1,12 @@
+" ---------------------------------------- Required before calling plugins
+" {{{
+
+" Ensure inoperability with old VI commands
+set nocompatible
+filetype off
+
+" }}}
+
 " ---------------------------------------- Plugins
 " {{{
 call plug#begin()
@@ -14,9 +23,10 @@ call plug#begin()
    Plug 'cocopon/iceberg.vim'
    Plug 'lifepillar/vim-solarized8'
    Plug 'flazz/vim-colorschemes'
-   Plug 'morhetz/gruvbox'
+   Plug 'dikiaap/minimalist'
+   " Plug 'morhetz/gruvbox'
    Plug 'tomasr/molokai'
-   Plug 'ajh17/spacegray.vim'
+   " Plug 'ajh17/spacegray.vim'
 
  " Rainbow Brackets
    Plug 'luochen1990/rainbow'
@@ -35,9 +45,20 @@ call plug#begin()
    Plug 'ianks/vim-tsx' " TSX
    Plug 'HerringtonDarkholme/yats.vim'
    Plug 'OmniSharp/Omnisharp-vim' " C#/Dotnet
+   Plug 'HerringtonDarkholme/yats.vim'
+   Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
   
+   " For Bazel
+   Plug 'google/vim-maktaba'
+   Plug 'bazelbuild/vim-bazel'
    " Ctrl-P
-   Plug 'ctrlpvim/ctrlp.vim'
+   " Plug 'ctrlpvim/ctrlp.vim'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+   Plug 'mileszs/ack.vim'
+
+   " Airline
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
 
    " Async build and test dispatcher
    Plug 'tpope/vim-dispatch'
@@ -84,6 +105,9 @@ call plug#begin()
  " Prettier
    Plug 'prettier/vim-prettier'
 
+   " ALE for Linting
+   Plug 'w0rp/ale'
+
  " Submode
    Plug 'kana/vim-submode'
 
@@ -108,9 +132,6 @@ call plug#end()
 let mapleader=","
 let maplocalleader="\\"
 
-" Ensure inoperability with old VI commands
-set nocompatible
-
 " No swap files
 set noswapfile
 
@@ -125,13 +146,6 @@ set numberwidth=3
 
 " Shorten update time from default 4000 to 300
 set updatetime=300
-
-" Set filetype and syntax on for syntax highlighting to work
-filetype plugin on
-syntax on
-
-" Enable syntax highlighting
-syntax on
 
 " All folds hidden by default in new buffer
 set foldlevelstart=0
@@ -165,8 +179,17 @@ set guifont=Fira\ Code\ 10
 " Color Scheme
 " colorscheme iceberg
 " colorscheme molokai
-colorscheme gruvbox
+" " set Vim-specific sequences for RGB colors
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
+colorscheme molokai
+" colorscheme gruvbox
+" Set filetype and syntax on for syntax highlighting to work
+filetype plugin on
+syntax on
+
 
 " Toggle Menu, Toolbar and Scollbar (if applicable)
 " set guioptions-=m
@@ -211,10 +234,11 @@ nnoremap <leader>h <C-W><C-H>
 nnoremap <leader>s :split<Enter>
 nnoremap <leader>v :vs<Enter>
 
-nnoremap <leader>jd :YcmCompleter GoTo<cr>
-nnoremap <leader>b :buffers<cr>
+nnoremap <leader>gt :YcmCompleter GoTo<cr>
+nnoremap <leader>bb :buffers<cr>
 nnoremap <leader>bj :bprevious<cr>
 nnoremap <leader>bk :bNext<cr>
+nnoremap <leader>bd :bdelete<cr>
 
 " Easier split resizing
 call submode#enter_with('grow/shrink', 'n', '', '<leader><up>', '<C-w>3+')
@@ -234,6 +258,8 @@ call submode#map('grow/shrink', 'n', '', '<left>', '<C-w>5>')
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :q!<cr>
+
+inoremap <leader><leader> ,
 
 " Leader rn to toggle relative number
 nnoremap <leader>rn :set relativenumber!<cr>
@@ -271,6 +297,7 @@ iabbrev woudl would
 " ---------------------------------------- FileType Settings
 " {{{
 autocmd FileType javascript,typescript,c,cpp,python :iabbrev ret return;<left>
+autocmd FileType javascript,typescript,html setlocal nowrap
 autocmd BufNewFile,BufRead *.cshtml set syntax=html
 
 augroup filetype_html
@@ -289,6 +316,9 @@ augroup END
 " {{{
 filetype plugin indent on
 syntax on
+" fzf runtime path
+      set rtp+=/usr/local/opt/fzf
+      let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Vinegar
         let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
@@ -298,6 +328,14 @@ syntax on
         let g:prettier#autoformat=1
         " Don't require files to be marked with @prettier/@format decorators
         let g:prettier#autoformat_require_pragma=0
+        " Always use arrow parens
+        let g:prettier#config#arrow_parens='always'
+        let g:prettier#config#single_quote=1
+" ALE
+         let g:ale_fixers = {}
+         let g:ale_fixers.javascript = ['eslint']
+         let g:ale_fixers.typescript = ['eslint']
+         let g:ale_fix_on_save = 1
 " CSS, SCSS, SASS, LESS
         autocmd FileType css,sass,scss,less setlocal omnifunc=csscomplete#CompleteCSS
         let g:deoplete#enable_at_startup = 1
